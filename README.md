@@ -14,6 +14,5 @@ Accidents for which the database has no data with regurds to LONGITUD and LATITU
 E.g. the function fars_map_state(51, 2013) plots the accident locations for state 51 in year 2013.
 
 ## Data from the US National Highway Traffic Safety Administration's Fatality Analysis Reporting System
-The data is included in the package for the years 2013, 2014, and 2015, although not in a separat data file as it should be used normally, but on the top level
-
+The data is included in the package for the years 2013, 2014, and 2015.
 
