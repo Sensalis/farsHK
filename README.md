@@ -16,3 +16,8 @@ E.g. the function fars_map_state(51, 2013) plots the accident locations for stat
 ## Data from the US National Highway Traffic Safety Administration's Fatality Analysis Reporting System
 The data is included in the package for the years 2013, 2014, and 2015.
 
+## Travis CI Checks
+  <!-- badges: start -->
+  [![Travis build status](https://travis-ci.org/Sensalis/farsHK.svg?branch=master)](https://travis-ci.org/Sensalis/farsHK)
+  <!-- badges: end -->
+
