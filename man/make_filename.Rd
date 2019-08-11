@@ -21,6 +21,9 @@ creates the file name for the called year
 the argument gets converted into an integer number and will then be used in the name which will be printed.
 }
 \examples{
-\dontrun{make_filename(2013)} returns "accident_2013.csv.bz2"
+\donttest{
+ library(farsHK)
+ make_filename(2013)
+ } returns "accident_2013.csv.bz2"
 
 }

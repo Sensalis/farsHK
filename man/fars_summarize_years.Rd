@@ -20,7 +20,10 @@ counts the accidents in each months of the given year and therefore summarizes f
 in grouping the data by month
 }
 \examples{
-\dontrun{fars_summarize_years(2013)}
+\donttest{
+ library(farsHK)
+ fars_summarize_years(2013)
+ }
 # A tibble: 12 x 2
 #   MONTH `2013`
 #   <dbl>  <int>
@@ -36,5 +39,4 @@ in grouping the data by month
 # 10   10   2768
 # 11   11   2615
 # 12   12   2457
-
 }

@@ -15,6 +15,8 @@ fars_map_state(state.num, year)
 }
 \value{
 returns a plot of accident locations in the state called for the year called.
+
+This function returns a NULL object. But as a side effect a map where dots represent accidents also appears in a seperate window.
 }
 \description{
 fars_map_state
@@ -28,5 +30,5 @@ If no accident occurred in the called state and year, the error message "no acci
 Accidents for which the database has no data with regurds to LONGITUD and LATITUDE are placed outside of all potentital plots
 }
 \examples{
-\dontrun{fars_map_state(51, 2013)} plots the accident locations for state 51 in year 2013.
+\donttest{fars_map_state(51, 2013)} plots the accident locations for state 51 in year 2013.
 }

@@ -1,17 +1,28 @@
+#' system.files
+system.file("extdata", "accident_2013.csv.bz2", package="farsHK")
+system.file("extdata", "accident_2014.csv.bz2", package="farsHK")
+system.file("extdata", "accident_2015.csv.bz2", package="farsHK")
+
 #' fars_read
 #' The fars_read function is importing data from a csv file
 #' Note that in the given data set only years 2013, 2014, and 2015 exist.
 #'
 #' @param filename The argument/input for the function is a string with the filename
+#' @details \code{fars_read} is a helper function for \code{fars_summarize_years}
+#'  and \code{fars_read}.
+#'
+#'  In case the file does not exist an error message is produced and execution stops.
 #' @return a tible of all accidents occured in the specific year and the 50 attributes per accident
+#' @importFrom readr read_csv
+#' @importFrom dplyr tbl_df
 #' @note If the user does not enter a valid file name, an error message appears saying "file filename does not exist"
-#' @examples \dontrun{fars_read("accident_2013.csv.bz2")}
+#' @examples \donttest{fars_read("accident_2013.csv.bz2")}
 #' # A tibble: 30,202 x 50
 #' # The tibble starts with...
 #' # STATE ST_CASE VE_TOTAL VE_FORMS PVH_INVL
 #' #   <dbl>   <dbl>    <dbl>    <dbl>    <dbl>
 #' # 1    1   10001        1        1        0
-#'
+#' @export
 fars_read <- function(filename) {
         if(!file.exists(filename))
                 stop("file '", filename, "' does not exist")
@@ -28,7 +39,11 @@ fars_read <- function(filename) {
 #' @param year The argument of the funtion is a string or an integer with the year
 #' @return The function Prints sprintf("accident_%d.csv.bz2", year), hence returns a string
 #' @note the argument gets converted into an integer number and will then be used in the name which will be printed.
-#' @examples \dontrun{make_filename(2013)} returns "accident_2013.csv.bz2"
+#' @examples
+#' \donttest{
+#'  library(farsHK)
+#'  make_filename(2013)
+#'  } returns "accident_2013.csv.bz2"
 #'
 make_filename <- function(year) {
         year <- as.integer(year)
@@ -40,6 +55,7 @@ make_filename <- function(year) {
 #' lists the month and the year for each accident of the year called
 #' @param years The argument of the funtion is a vector of years
 #' @return returns a tibble (data.frame) of the length (number of accidents) x 2, whereas the columns return the month and the year in which the accident occured.
+#' @importFrom dplyr mutate select %>%
 #' @note Receives name of the file from the make_filename function, and selects months. If there is no data for a specific year, there is an error message saying "invalid year: " with the year printed.
 #' @examples
 #' \dontrun{fars_read_years(2014)}
@@ -80,8 +96,14 @@ fars_read_years <- function(years) {
 #' counts the accidents in each months of the given year and therefore summarizes fars_read_years function
 #' in grouping the data by month
 #' @param years The argument of the funtion is a vector of years
+#' @importFrom dplyr bind_rows group_by summarize %>% n
+#' @importFrom tidyr spread
 #' @return A tibble: 12 x 2 (data.frame), with number of accidents, sorted by month (numerically)
-#' @examples \dontrun{fars_summarize_years(2013)}
+#' @examples
+#' \donttest{
+#'  library(farsHK)
+#'  fars_summarize_years(2013)
+#'  }
 #'# A tibble: 12 x 2
 #'#   MONTH `2013`
 #'#   <dbl>  <int>
@@ -97,7 +119,7 @@ fars_read_years <- function(years) {
 #'# 10   10   2768
 #'# 11   11   2615
 #'# 12   12   2457
-#'
+#'@export
 fars_summarize_years <- function(years) {
         dat_list <- fars_read_years(years)
         dplyr::bind_rows(dat_list) %>%
@@ -114,13 +136,16 @@ fars_summarize_years <- function(years) {
 #' @param year year as a string or an integer
 #' @param state.num state number as an integer, number must be between 1 and 51
 #' @return returns a plot of accident locations in the state called for the year called.
+#' @importFrom graphics points
+#' @importFrom maps map
+#' @importFrom dplyr filter
 #' @note Receives data from make_filename and fars_read functions. There are only 51 states in the USA. If a wrong state number is entered an error message will state "invalid STATE number: " with the wrong number printed.
 #' If there is no data for a specific year, there is an error message saying "invalid year: " with the year printed.
 #' If no accident occurred in the called state and year, the error message "no accidents to plot" appears.
 #' Accidents for which the database has no data with regurds to LONGITUD and LATITUDE are placed outside of all potentital plots
-#' @examples \dontrun{fars_map_state(51, 2013)} plots the accident locations for state 51 in year 2013.
+#' @return This function returns a NULL object. But as a side effect a map where dots represent accidents also appears in a seperate window.
+#' @examples \donttest{fars_map_state(51, 2013)} plots the accident locations for state 51 in year 2013.
 #' @export
-
 fars_map_state <- function(state.num, year) {
         filename <- make_filename(year)
         data <- fars_read(filename)

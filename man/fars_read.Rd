@@ -19,15 +19,20 @@ fars_read
 The fars_read function is importing data from a csv file
 Note that in the given data set only years 2013, 2014, and 2015 exist.
 }
+\details{
+\code{fars_read} is a helper function for \code{fars_summarize_years}
+ and \code{fars_read}.
+
+ In case the file does not exist an error message is produced and execution stops.
+}
 \note{
 If the user does not enter a valid file name, an error message appears saying "file filename does not exist"
 }
 \examples{
-\dontrun{fars_read("accident_2013.csv.bz2")}
+\donttest{fars_read("accident_2013.csv.bz2")}
 # A tibble: 30,202 x 50
 # The tibble starts with...
 # STATE ST_CASE VE_TOTAL VE_FORMS PVH_INVL
 #   <dbl>   <dbl>    <dbl>    <dbl>    <dbl>
 # 1    1   10001        1        1        0
-
 }

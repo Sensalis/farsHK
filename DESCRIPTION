@@ -3,7 +3,16 @@ Type: Package
 Title: Accident Locations in the USA
 Date: 2019-08-10
 Version: 0.1.0.9000
+Depends: R (>= 2.10)
 Author: Dr Heinz R Kubli <heinz.kubli@sensalis.com>
+Imports: 
+  dplyr, 
+  graphics, 
+  maps, 
+  qpdf,
+  readr,
+  testthat,
+  tidyr
 Maintainer: Dr Heinz R Kubli <heinz.kubli@sensalis.com>
 Description: The fars package is to plot accident locations of the years 2013, 2014,and 2015 per state. The state is called by its number.
 License: MIT + file LICENSE
@@ -11,6 +20,7 @@ Encoding: UTF-8
 LazyData: true
 Suggests: 
     knitr,
-    rmarkdown
+    rmarkdown,
+    testthat
 VignetteBuilder: knitr
 RoxygenNote: 6.1.1
